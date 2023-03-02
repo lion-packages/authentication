@@ -1,0 +1,21 @@
+{
+    "name": "lion/authentication",
+    "description": "Library to authenticate users in 2 steps",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LionAuthentication\\": "src/LionAuthentication/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergio León"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "bacon/bacon-qr-code": "^2.0",
+        "pragmarx/google2fa": "^8.0"
+    }
+}
