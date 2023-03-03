@@ -8,7 +8,6 @@ class Auth2FA {
 
 	private static Google2FA $google2FA;
 	private static ?Auth2FA $auth = null;
-	private static string $secret_key;
 
 	public static function init(): Auth2FA {
 		if (self::$auth === null) {
@@ -20,18 +19,18 @@ class Auth2FA {
 	}
 
 	public static function qr(string $companyName, string $companyEmail, int $size = 400): object {
-		self::$secret_key = self::$google2FA->generateSecretKey();
+		$secret_key = self::$google2FA->generateSecretKey();
 
 		$img = base64_encode(self::$google2FA->getQRCodeInline(
 			$companyName,
 			$companyEmail,
-			self::$secret_key,
+			$secret_key,
 			$size
 		));
 
 		return (object) [
 			'qr' => "data:image/svg+xml;base64," . $img,
-			'secret-key' => self::$secret_key
+			'secret_key' => $secret_key
 		];
 	}
 
