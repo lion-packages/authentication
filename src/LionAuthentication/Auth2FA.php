@@ -15,9 +15,16 @@ class Auth2FA
         $this->google2FA = new Google2FA();
     }
 
-	public function qr(string $companyName, string $companyEmail, int $size = 200, string $encoding = 'utf-8'): object
+	public function qr(
+        string $companyName,
+        string $companyEmail,
+        int $size = 200,
+        string $encoding = 'utf-8',
+        int $length = 16,
+        string $prefix = '',
+    ): object
     {
-		$secretKey = $this->google2FA->generateSecretKey();
+		$secretKey = $this->google2FA->generateSecretKey($length, $prefix);
 
 		$img = base64_encode(
             $this->google2FA->getQRCodeInline($companyName, $companyEmail, $secretKey, $size, $encoding)
@@ -28,6 +35,7 @@ class Auth2FA
             'message' => 'generated QR code',
             'data' => (object) [
                 'secretKey' => $secretKey,
+                'base64Content' => $img,
                 'qr' => "data:image/svg+xml;base64,{$img}"
             ]
         ];
@@ -40,7 +48,7 @@ class Auth2FA
 		if (!$validation) {
 			return (object) [
 				'status' => 'authentication-error',
-				'message' => "failed to authenticate, the code '{$secretCode}' is not valid"
+				'message' => 'failed to authenticate, the code is not valid'
 			];
 		}
 
