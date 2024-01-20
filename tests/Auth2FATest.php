@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use LionAuthentication\Auth2FA;
+use Lion\Authentication\Auth2FA;
 use LionTest\Test;
 use PragmaRX\Google2FA\Google2FA;
 use Tests\Constanst;

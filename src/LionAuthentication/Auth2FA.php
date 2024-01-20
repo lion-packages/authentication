@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LionAuthentication;
+namespace Lion\Authentication;
 
 use PragmaRX\Google2FAQRCode\Google2FA;
 
