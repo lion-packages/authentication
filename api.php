@@ -4,7 +4,7 @@ require_once('./vendor/autoload.php');
 
 header('Content-Type: application/json');
 
-use LionAuthentication\Auth2FA;
+use Lion\Authentication\Auth2FA;
 
 $content = json_decode(file_get_contents("php://input"), true);
 $request = $content === null ? ((object) [...$_POST, ...$_GET]) : ((object) $content);

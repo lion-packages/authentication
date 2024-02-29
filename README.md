@@ -16,6 +16,7 @@
 </p>
 
 ## Install
+
 ```bash
 composer require lion/authentication
 ```

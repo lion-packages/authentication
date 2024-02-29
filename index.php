@@ -2,7 +2,7 @@
 
 require_once('./vendor/autoload.php');
 
-use LionAuthentication\Auth2FA;
+use Lion\Authentication\Auth2FA;
 
 header('Content-Type: application/json');
 

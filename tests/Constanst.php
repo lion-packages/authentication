@@ -6,7 +6,6 @@ namespace Tests;
 
 class Constanst
 {
-    const PROPIERTY = 'google2FA';
     const STATUS = 'status';
     const MESSAGE = 'message';
     const DATA = 'data';
