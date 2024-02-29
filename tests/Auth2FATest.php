@@ -16,13 +16,13 @@ class Auth2FATest extends Test
     protected function setUp(): void
     {
         $this->auth2FA = new Auth2FA();
+
+        $this->initReflection($this->auth2FA);
     }
 
     public function testConstruct(): void
     {
-        $this->initReflection($this->auth2FA);
-
-        $this->assertInstanceOf(Google2FA::class, $this->getPrivateProperty(Constanst::PROPIERTY));
+        $this->assertInstanceOf(Google2FA::class, $this->getPrivateProperty('google2FA'));
     }
 
     public function testQr(): void
