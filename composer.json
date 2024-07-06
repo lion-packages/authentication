@@ -19,7 +19,7 @@
         "bacon/bacon-qr-code": "^2.0"
     },
     "require-dev": {
-        "lion/test": "^1.4",
-        "phpunit/phpunit": "^10.5"
+        "lion/test": "^2.0",
+        "phpunit/phpunit": "^11.2"
     }
 }
