@@ -14,12 +14,12 @@
         }
     },
     "require": {
-        "php": ">=8.2",
-        "pragmarx/google2fa-qrcode": "^3.0",
-        "bacon/bacon-qr-code": "^2.0"
+        "php": ">=8.4"
     },
     "require-dev": {
         "lion/test": "^2.0",
-        "phpunit/phpunit": "^11.2"
+        "phpunit/phpunit": "^11.2",
+        "bacon/bacon-qr-code": "^3.0",
+        "pragmarx/google2fa-qrcode": "^3.0"
     }
 }
