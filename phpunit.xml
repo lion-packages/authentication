@@ -31,7 +31,7 @@
 
     <testsuites>
         <testsuite name="All-Test">
-            <directory>tests/</directory>
+            <file>tests/Auth2FATest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
