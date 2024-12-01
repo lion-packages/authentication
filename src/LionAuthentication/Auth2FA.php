@@ -10,6 +10,8 @@ use PragmaRX\Google2FAQRCode\Google2FA;
  * Provides functionality for two-factor authentication (2FA) using Google
  * Authenticator
  *
+ * @property Google2FA $google2FA [Google2FA class object]
+ *
  * @package Lion\Authentication
  */
 class Auth2FA
@@ -56,6 +58,7 @@ class Auth2FA
         );
 
         return (object) [
+            'code' => 200,
             'status' => 'success',
             'message' => 'generated QR code',
             'data' => (object) [
@@ -82,11 +85,16 @@ class Auth2FA
 
 		if (!$validation) {
 			return (object) [
+                'code' => 401,
 				'status' => 'authentication-error',
 				'message' => 'failed to authenticate, the code is not valid'
 			];
 		}
 
-		return (object) ['status' => 'success', 'message' => 'the authentication code is valid'];
+		return (object) [
+            'code' => 200,
+            'status' => 'success',
+            'message' => 'the authentication code is valid',
+        ];
 	}
 }
