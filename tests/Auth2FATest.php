@@ -6,13 +6,18 @@ namespace Tests;
 
 use Lion\Authentication\Auth2FA;
 use Lion\Test\Test;
+use PHPUnit\Framework\Attributes\Test as Testing;
 use PragmaRX\Google2FA\Google2FA;
-use Tests\Constanst;
+use ReflectionException;
+use Tests\Constants;
 
 class Auth2FATest extends Test
 {
     private Auth2FA $auth2FA;
 
+    /**
+     * @throws ReflectionException
+     */
     protected function setUp(): void
     {
         $this->auth2FA = new Auth2FA();
@@ -20,51 +25,57 @@ class Auth2FATest extends Test
         $this->initReflection($this->auth2FA);
     }
 
-    public function testConstruct(): void
+    /**
+     * @throws ReflectionException
+     */
+    #[Testing]
+    public function construct(): void
     {
         $this->assertInstanceOf(Google2FA::class, $this->getPrivateProperty('google2FA'));
     }
 
-    public function testQr(): void
+    #[Testing]
+    public function qr(): void
     {
         $qr = $this->auth2FA->qr(
-            Constanst::COMPANY_NAME,
-            Constanst::COMPANY_EMAIL,
-            Constanst::SIZE,
-            Constanst::ENCODING,
-            Constanst::LENGTH,
-            Constanst::PREFIX
+            Constants::COMPANY_NAME,
+            Constants::COMPANY_EMAIL,
+            Constants::SIZE,
+            Constants::ENCODING,
+            Constants::LENGTH,
+            Constants::PREFIX
         );
 
         $this->assertIsObject($qr);
-        $this->assertObjectHasProperty(Constanst::STATUS, $qr);
-        $this->assertObjectHasProperty(Constanst::MESSAGE, $qr);
-        $this->assertObjectHasProperty(Constanst::DATA, $qr);
-        $this->assertSame(Constanst::SUCCESS_QR, $qr->status);
-        $this->assertSame(Constanst::MESSAGE_QR, $qr->message);
+        $this->assertObjectHasProperty(Constants::STATUS, $qr);
+        $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
+        $this->assertObjectHasProperty(Constants::DATA, $qr);
+        $this->assertSame(Constants::SUCCESS_QR, $qr->status);
+        $this->assertSame(Constants::MESSAGE_QR, $qr->message);
         $this->assertIsObject($qr->data);
-        $this->assertObjectHasProperty(Constanst::SECRET_KEY, $qr->data);
-        $this->assertObjectHasProperty(Constanst::QR, $qr->data);
-        $this->assertObjectHasProperty(Constanst::BASE64CONTENT, $qr->data);
+        $this->assertObjectHasProperty(Constants::SECRET_KEY, $qr->data);
+        $this->assertObjectHasProperty(Constants::QR, $qr->data);
+        $this->assertObjectHasProperty(Constants::BASE64CONTENT, $qr->data);
     }
 
-    public function testVerifyInvalid(): void
+    #[Testing]
+    public function verifyInvalid(): void
     {
         $qr = $this->auth2FA->qr(
-            Constanst::COMPANY_NAME,
-            Constanst::COMPANY_EMAIL,
-            Constanst::SIZE,
-            Constanst::ENCODING,
-            Constanst::LENGTH,
-            Constanst::PREFIX
+            Constants::COMPANY_NAME,
+            Constants::COMPANY_EMAIL,
+            Constants::SIZE,
+            Constants::ENCODING,
+            Constants::LENGTH,
+            Constants::PREFIX
         );
 
         $validate = $this->auth2FA->verify($qr->data->secretKey, uniqid());
 
         $this->assertIsObject($validate);
-        $this->assertObjectHasProperty(Constanst::STATUS, $validate);
-        $this->assertObjectHasProperty(Constanst::MESSAGE, $validate);
-        $this->assertSame(Constanst::SUCCESS_VERIFY_ERR, $validate->status);
-        $this->assertSame(Constanst::MESSAGE_VERIFY_ERR, $validate->message);
+        $this->assertObjectHasProperty(Constants::STATUS, $validate);
+        $this->assertObjectHasProperty(Constants::MESSAGE, $validate);
+        $this->assertSame(Constants::SUCCESS_VERIFY_ERR, $validate->status);
+        $this->assertSame(Constants::MESSAGE_VERIFY_ERR, $validate->message);
     }
 }
