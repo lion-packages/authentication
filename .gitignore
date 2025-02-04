@@ -1,5 +1,7 @@
 /.idea/
 /vendor/
+/tests/build/
 .phpunit.result.cache
 index.php
 api.php
+composer.lock
