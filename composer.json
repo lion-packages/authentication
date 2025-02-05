@@ -20,6 +20,8 @@
         "lion/test": "^2.0",
         "phpunit/phpunit": "^11.2",
         "bacon/bacon-qr-code": "^3.0",
-        "pragmarx/google2fa-qrcode": "^3.0"
+        "pragmarx/google2fa-qrcode": "^3.0",
+        "phpstan/phpstan": "^2.1",
+        "squizlabs/php_codesniffer": "^3.11"
     }
 }
