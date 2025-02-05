@@ -29,6 +29,12 @@
         <ini name="memory_limit" value="2048M" />
     </php>
 
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
+
     <testsuites>
         <testsuite name="All-Test">
             <file>tests/Auth2FATest.php</file>
