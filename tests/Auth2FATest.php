@@ -9,7 +9,7 @@ use Lion\Test\Test;
 use PHPUnit\Framework\Attributes\Test as Testing;
 use PragmaRX\Google2FA\Google2FA;
 use ReflectionException;
-use Tests\Constants;
+use stdClass;
 
 class Auth2FATest extends Test
 {
@@ -46,7 +46,7 @@ class Auth2FATest extends Test
             Constants::PREFIX
         );
 
-        $this->assertIsObject($qr);
+        $this->assertInstanceOf(stdClass::class, $qr);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
         $this->assertObjectHasProperty(Constants::DATA, $qr);
@@ -67,12 +67,19 @@ class Auth2FATest extends Test
             Constants::SIZE,
             Constants::ENCODING,
             Constants::LENGTH,
-            Constants::PREFIX
+            Constants::PREFIX,
         );
 
+        $this->assertInstanceOf(stdClass::class, $qr);
+        $this->assertObjectHasProperty('data', $qr);
+        $this->assertInstanceOf(stdClass::class, $qr->data);
+        $this->assertObjectHasProperty('secretKey', $qr->data);
+        $this->assertIsString($qr->data->secretKey);
+
+        /** @var stdClass $validate */
         $validate = $this->auth2FA->verify($qr->data->secretKey, uniqid());
 
-        $this->assertIsObject($validate);
+        $this->assertInstanceOf(stdClass::class, $validate);
         $this->assertObjectHasProperty(Constants::STATUS, $validate);
         $this->assertObjectHasProperty(Constants::MESSAGE, $validate);
         $this->assertSame(Constants::SUCCESS_VERIFY_ERR, $validate->status);
