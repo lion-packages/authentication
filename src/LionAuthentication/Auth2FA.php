@@ -21,12 +21,12 @@ class Auth2FA
      *
      * @var Google2FA $google2FA
      */
-	private Google2FA $google2FA;
+    private Google2FA $google2FA;
 
     /**
      * Class constructor
      */
-	public function __construct()
+    public function __construct()
     {
         $this->google2FA = new Google2FA();
     }
@@ -43,7 +43,7 @@ class Auth2FA
      *
      * @return object
      */
-	public function qr(
+    public function qr(
         string $companyName,
         string $companyEmail,
         int $size = 200,
@@ -51,9 +51,9 @@ class Auth2FA
         int $length = 16,
         string $prefix = ''
     ): object {
-		$secretKey = $this->google2FA->generateSecretKey($length, $prefix);
+        $secretKey = $this->google2FA->generateSecretKey($length, $prefix);
 
-		$img = base64_encode(
+        $img = base64_encode(
             $this->google2FA->getQRCodeInline($companyName, $companyEmail, $secretKey, $size, $encoding)
         );
 
@@ -67,7 +67,7 @@ class Auth2FA
                 'qr' => "data:image/svg+xml;base64,{$img}"
             ]
         ];
-	}
+    }
 
     /**
      * Verifies the authenticity of a given secret code, relative to a given
@@ -79,22 +79,22 @@ class Auth2FA
      *
      * @return object
      */
-	public function verify(string $secretKey, string $secretCode): object
+    public function verify(string $secretKey, string $secretCode): object
     {
         $validation = (bool) $this->google2FA->verifyKey($secretKey, $secretCode);
 
-		if (!$validation) {
-			return (object) [
+        if (!$validation) {
+            return (object) [
                 'code' => 401,
-				'status' => 'authentication-error',
-				'message' => 'failed to authenticate, the code is not valid'
-			];
-		}
+                'status' => 'authentication-error',
+                'message' => 'failed to authenticate, the code is not valid'
+            ];
+        }
 
-		return (object) [
+        return (object) [
             'code' => 200,
             'status' => 'success',
             'message' => 'the authentication code is valid',
         ];
-	}
+    }
 }
