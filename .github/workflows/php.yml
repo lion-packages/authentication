@@ -22,13 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.4
-          extensions: mbstring, gd, zip, xdebug
-          coverage: xdebug
-          ini-values: |
-            xdebug.mode=coverage
-            xdebug.start_with_request=yes
-            xdebug.log_level=0
-          tools: composer
+          extensions: mbstring, gd, zip
 
       - name: Install PHP dependencies
         run: composer install
@@ -201,7 +195,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.4
-          extensions: mbstring, gd, zip, xdebug
+          extensions: mbstring, gd, zip, iconv, xdebug
           coverage: xdebug
           ini-values: |
             xdebug.mode=coverage
