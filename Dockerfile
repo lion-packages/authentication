@@ -16,8 +16,8 @@ RUN apt-get update -y \
 
 # Configure PHP-Extensions
 RUN pecl install xdebug \
-    && docker-php-ext-install mbstring gd zip \
-    && docker-php-ext-enable gd zip xdebug \
+    && docker-php-ext-install mbstring gd zip iconv \
+    && docker-php-ext-enable gd zip xdebug iconv \
     && a2enmod rewrite
 
 # Configure Xdebug
