@@ -224,4 +224,4 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: tests/build/logs/clover.xml
-          token: ${{ secrets.CODECOV_TOKEN_LION_REQUEST }}
+          token: ${{ secrets.CODECOV_TOKEN_LION_AUTHENTICATION }}
