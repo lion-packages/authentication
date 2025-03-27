@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
-use Tests\Constants;
-
 trait Auth2FAProviderTrait
 {
     /**
