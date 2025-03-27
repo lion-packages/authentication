@@ -14,9 +14,11 @@ use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
 use PragmaRX\Google2FA\Google2FA;
 use PragmaRX\Google2FAQRCode\Exceptions\MissingQrCodeServiceException;
+use PragmaRX\Google2FAQRCode\QRCode\Bacon;
 use ReflectionException;
 use stdClass;
 use Tests\Providers\Auth2FAProviderTrait;
+use Tests\Providers\Constants;
 
 class Auth2FATest extends Test
 {
@@ -50,7 +52,17 @@ class Auth2FATest extends Test
     #[Testing]
     public function construct(): void
     {
-        $this->assertInstanceOf(Google2FA::class, $this->getPrivateProperty('google2FA'));
+        $google2FA = $this->getPrivateProperty('google2FA');
+
+        $this->assertInstanceOf(Google2FA::class, $google2FA);
+
+        $this->initReflection($google2FA);
+
+        $qrCodeService = $this->getPrivateProperty('qrCodeService');
+
+        $this->assertInstanceOf(Bacon::class, $qrCodeService);
+
+        $this->initReflection($this->auth2FA);
     }
 
     /**

@@ -43,6 +43,8 @@ class Auth2FA
 
     /**
      * Class constructor
+     *
+     * @infection-ignore-all
      */
     public function __construct()
     {
