@@ -3,6 +3,16 @@
     "description": "library to authenticate users in 2 steps",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://dev.lion-packages.com",
+    "keywords": [
+        "lion",
+        "authentication",
+        "lion-authentication"
+    ],
+    "support": {
+        "issues": "https://github.com/lion-packages/authentication/issues",
+        "source": "https://github.com/lion-packages/authentication"
+    },
     "autoload": {
         "psr-4": {
             "Lion\\Authentication\\": "src/LionAuthentication/"
