@@ -27,7 +27,7 @@
         "php": ">=8.5"
     },
     "require-dev": {
-        "lion/test": "^2.0 || ^3.0",
+        "lion/test": "^2.0 || ^3.0 || ^4.0",
         "bacon/bacon-qr-code": "^3.0",
         "pragmarx/google2fa-qrcode": "^3.0",
         "phpstan/phpstan": "^2.1",
