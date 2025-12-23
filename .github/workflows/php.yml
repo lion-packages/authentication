@@ -7,6 +7,13 @@ on:
   pull_request:
     branches:
       - 6.x
+    paths:
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'phpunit.xml'
 
 env:
   PHP_VERSION: 8.5
