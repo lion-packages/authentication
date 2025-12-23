@@ -1,6 +1,6 @@
 services:
-    app:
-        container_name: authentication-app
+    php:
+        container_name: authentication-php
         build:
             context: .
             dockerfile: Dockerfile

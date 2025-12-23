@@ -1,6 +1,6 @@
 {
     "name": "lion/authentication",
-    "description": "library to authenticate users in 2 steps",
+    "description": "Library to add 2FA security.",
     "type": "library",
     "license": "MIT",
     "homepage": "https://dev.lion-packages.com",
@@ -24,7 +24,7 @@
         }
     },
     "require": {
-        "php": ">=8.4"
+        "php": ">=8.5"
     },
     "require-dev": {
         "lion/test": "^2.0 || ^3.0",
