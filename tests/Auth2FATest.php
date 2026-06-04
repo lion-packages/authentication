@@ -102,8 +102,9 @@ class Auth2FATest extends Test
         $qrCodeInline = $this->getPrivateProperty('qrCodeInline');
 
         $this->assertTrue(
-            str_starts_with($qrCodeInline, 'data:image/svg+xml;base64')
-            || str_starts_with($qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
+            str_starts_with($qrCodeInline, 'data:image/png;base64,') ||
+            str_starts_with($qrCodeInline, 'data:image/svg+xml;base64') ||
+            str_starts_with($qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
 
@@ -143,8 +144,9 @@ class Auth2FATest extends Test
         $this->assertSame($length, strlen($qr->data->secretKey));
 
         $this->assertTrue(
-            str_starts_with($qr->data->qrCodeInline, 'data:image/svg+xml;base64,')
-            || str_starts_with($qr->data->qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
+            str_starts_with($qr->data->qrCodeInline, 'data:image/png;base64,') ||
+            str_starts_with($qr->data->qrCodeInline, 'data:image/svg+xml;base64,') ||
+            str_starts_with($qr->data->qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
 
