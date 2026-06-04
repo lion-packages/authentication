@@ -13,7 +13,7 @@ use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
 use PragmaRX\Google2FA\Google2FA;
-use PragmaRX\Google2FAQRCode\Exceptions\MissingQrCodeServiceException;
+use PragmaRX\Google2FAQRCode\Exceptions\MissingQRCodeServiceException;
 use PragmaRX\Google2FAQRCode\QRCode\Bacon;
 use ReflectionException;
 use stdClass;
@@ -26,9 +26,6 @@ class Auth2FATest extends Test
 
     private Auth2FA $auth2FA;
 
-    /**
-     * @throws ReflectionException
-     */
     protected function setUp(): void
     {
         $this->auth2FA = new Auth2FA();
@@ -105,14 +102,15 @@ class Auth2FATest extends Test
         $qrCodeInline = $this->getPrivateProperty('qrCodeInline');
 
         $this->assertTrue(
-            str_starts_with($qrCodeInline, 'data:image/png;base64,')
-            || str_starts_with($qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
+            str_starts_with($qrCodeInline, 'data:image/png;base64,') ||
+            str_starts_with($qrCodeInline, 'data:image/svg+xml;base64') ||
+            str_starts_with($qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
 
     /**
      * @throws IncompatibleWithGoogleAuthenticatorException
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
      */
@@ -122,7 +120,6 @@ class Auth2FATest extends Test
     {
         $qr = $this->auth2FA->qr($companyName, $companyEmail, $size, $encoding, $length);
 
-        $this->assertInstanceOf(stdClass::class, $qr);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
         $this->assertObjectHasProperty(Constants::DATA, $qr);
@@ -147,14 +144,15 @@ class Auth2FATest extends Test
         $this->assertSame($length, strlen($qr->data->secretKey));
 
         $this->assertTrue(
-            str_starts_with($qr->data->qrCodeInline, 'data:image/png;base64,')
-            || str_starts_with($qr->data->qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
+            str_starts_with($qr->data->qrCodeInline, 'data:image/png;base64,') ||
+            str_starts_with($qr->data->qrCodeInline, 'data:image/svg+xml;base64,') ||
+            str_starts_with($qr->data->qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
 
     /**
      * @throws IncompatibleWithGoogleAuthenticatorException
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
      */
@@ -169,7 +167,6 @@ class Auth2FATest extends Test
     ): void {
         $qr = $this->auth2FA->qr($companyName, $companyEmail, $size, $encoding, $length);
 
-        $this->assertInstanceOf(stdClass::class, $qr);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
         $this->assertObjectHasProperty(Constants::DATA, $qr);
@@ -193,7 +190,6 @@ class Auth2FATest extends Test
 
         $validate = $this->auth2FA->verify($qr->data->secretKey, uniqid());
 
-        $this->assertInstanceOf(stdClass::class, $validate);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::CODE, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);

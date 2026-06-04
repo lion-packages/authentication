@@ -7,35 +7,33 @@ namespace Lion\Authentication;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
-use PragmaRX\Google2FAQRCode\Exceptions\MissingQrCodeServiceException;
+use PragmaRX\Google2FAQRCode\Exceptions\MissingQRCodeServiceException;
 use PragmaRX\Google2FAQRCode\Google2FA;
 use PragmaRX\Google2FAQRCode\QRCode\Bacon;
 use stdClass;
 
 /**
  * Provides functionality for two-factor authentication (2FA) using Google
- * Authenticator
- *
- * @package Lion\Authentication
+ * Authenticator.
  */
 class Auth2FA
 {
     /**
-     * [Google2FA class object]
+     * Google2FA class object
      *
      * @var Google2FA $google2FA
      */
     private Google2FA $google2FA;
 
     /**
-     * [Secret key]
+     * Secret key
      *
      * @var string $secretKey
      */
     private string $secretKey;
 
     /**
-     * [QR code]
+     * QR code
      *
      * @var string $qrCodeInline
      */
@@ -56,7 +54,7 @@ class Auth2FA
     /**
      * Generate a secret key
      *
-     * @param int $length [The length of the secret key]
+     * @param int $length The length of the secret key.
      *
      * @return void
      *
@@ -70,16 +68,16 @@ class Auth2FA
     }
 
     /**
-     * Generate the QR code
+     * Generate the QR code.
      *
-     * @param string $companyName [The name of the company]
-     * @param string $companyEmail [The company email]
-     * @param int $size [The desired size for the QR code]
-     * @param string $encoding [Text encoding]
+     * @param string $companyName The name of the company.
+     * @param string $companyEmail The company email.
+     * @param int $size The desired size for the QR code.
+     * @param string $encoding Text encoding.
      *
      * @return void
      *
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      */
     private function getQRCodeInline(string $companyName, string $companyEmail, int $size, string $encoding): void
     {
@@ -93,20 +91,20 @@ class Auth2FA
     }
 
     /**
-     * Generates a QR code for two-factor authentication (2FA)
+     * Generates a QR code for two-factor authentication (2FA).
      *
-     * @param string $companyName [The name of the company]
-     * @param string $companyEmail [The company email]
-     * @param int $size [The desired size for the QR code]
-     * @param string $encoding [Text encoding]
-     * @param int $length [The length of the secret key]
+     * @param string $companyName The name of the company.
+     * @param string $companyEmail The company email.
+     * @param int $size The desired size for the QR code.
+     * @param string $encoding Text encoding.
+     * @param int $length The length of the secret key.
      *
      * @return stdClass
      *
      * @throws IncompatibleWithGoogleAuthenticatorException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      *
      * @infection-ignore-all
      */
@@ -126,7 +124,7 @@ class Auth2FA
         return (object) [
             'code' => 200,
             'status' => 'success',
-            'message' => 'generated QR code',
+            'message' => 'Generated QR code.',
             'data' => (object) [
                 'secretKey' => $this->secretKey,
                 'qrCodeInline' => $this->qrCodeInline,
@@ -138,11 +136,11 @@ class Auth2FA
 
     /**
      * Verifies the authenticity of a given secret code, relative to a given
-     * secret key
+     * secret key.
      *
-     * @param string $secretKey [The secret key used to generate the QR code]
-     * @param string $secretCode [The secret code entered by the user for
-     * authentication]
+     * @param string $secretKey The secret key used to generate the QR code.
+     * @param string $secretCode The secret code entered by the user for
+     * authentication.
      *
      * @return stdClass
      *
@@ -158,14 +156,14 @@ class Auth2FA
             return (object) [
                 'code' => 200,
                 'status' => 'success',
-                'message' => 'the authentication code is valid',
+                'message' => 'The authentication code is valid.',
             ];
         }
 
         return (object) [
             'code' => 401,
             'status' => 'authentication-error',
-            'message' => 'failed to authenticate, the code is not valid',
+            'message' => 'Failed to authenticate, the code is not valid.',
         ];
     }
 }
