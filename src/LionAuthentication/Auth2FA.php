@@ -7,7 +7,7 @@ namespace Lion\Authentication;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
-use PragmaRX\Google2FAQRCode\Exceptions\MissingQrCodeServiceException;
+use PragmaRX\Google2FAQRCode\Exceptions\MissingQRCodeServiceException;
 use PragmaRX\Google2FAQRCode\Google2FA;
 use PragmaRX\Google2FAQRCode\QRCode\Bacon;
 use stdClass;
@@ -77,7 +77,7 @@ class Auth2FA
      *
      * @return void
      *
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      */
     private function getQRCodeInline(string $companyName, string $companyEmail, int $size, string $encoding): void
     {
@@ -104,7 +104,7 @@ class Auth2FA
      * @throws IncompatibleWithGoogleAuthenticatorException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
-     * @throws MissingQrCodeServiceException
+     * @throws MissingQRCodeServiceException
      *
      * @infection-ignore-all
      */
