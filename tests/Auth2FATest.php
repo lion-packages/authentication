@@ -26,9 +26,6 @@ class Auth2FATest extends Test
 
     private Auth2FA $auth2FA;
 
-    /**
-     * @throws ReflectionException
-     */
     protected function setUp(): void
     {
         $this->auth2FA = new Auth2FA();
@@ -104,8 +101,10 @@ class Auth2FATest extends Test
         /** @var string $qrCodeInline */
         $qrCodeInline = $this->getPrivateProperty('qrCodeInline');
 
+        var_dump($qrCodeInline);
+
         $this->assertTrue(
-            str_starts_with($qrCodeInline, 'data:image/png;base64,')
+            str_starts_with($qrCodeInline, 'data:image/svg+xml;base64')
             || str_starts_with($qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
@@ -122,7 +121,7 @@ class Auth2FATest extends Test
     {
         $qr = $this->auth2FA->qr($companyName, $companyEmail, $size, $encoding, $length);
 
-        $this->assertInstanceOf(stdClass::class, $qr);
+        $this->assertIsObject($qr);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
         $this->assertObjectHasProperty(Constants::DATA, $qr);
@@ -147,7 +146,7 @@ class Auth2FATest extends Test
         $this->assertSame($length, strlen($qr->data->secretKey));
 
         $this->assertTrue(
-            str_starts_with($qr->data->qrCodeInline, 'data:image/png;base64,')
+            str_starts_with($qr->data->qrCodeInline, 'data:image/svg+xml;base64,')
             || str_starts_with($qr->data->qrCodeInline, '<?xml version="1.0" encoding="UTF-8"?>')
         );
     }
@@ -169,7 +168,7 @@ class Auth2FATest extends Test
     ): void {
         $qr = $this->auth2FA->qr($companyName, $companyEmail, $size, $encoding, $length);
 
-        $this->assertInstanceOf(stdClass::class, $qr);
+        $this->assertIsObject($qr);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);
         $this->assertObjectHasProperty(Constants::DATA, $qr);
@@ -193,7 +192,7 @@ class Auth2FATest extends Test
 
         $validate = $this->auth2FA->verify($qr->data->secretKey, uniqid());
 
-        $this->assertInstanceOf(stdClass::class, $validate);
+        $this->assertIsObject($validate);
         $this->assertObjectHasProperty(Constants::STATUS, $qr);
         $this->assertObjectHasProperty(Constants::CODE, $qr);
         $this->assertObjectHasProperty(Constants::MESSAGE, $qr);

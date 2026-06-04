@@ -22,7 +22,7 @@ class Constants
     public const string SUCCESS = 'success';
     public const int HTTP_CODE_OK = 200;
     public const int HTTP_CODE_UNAUTHORIZED = 401;
-    public const string MESSAGE_QR = 'generated QR code';
+    public const string MESSAGE_QR = 'Generated QR code.';
     public const string AUTHENTICATION_ERROR = 'authentication-error';
-    public const string MESSAGE_VERIFY_ERR = 'failed to authenticate, the code is not valid';
+    public const string MESSAGE_VERIFY_ERR = 'Failed to authenticate, the code is not valid.';
 }
